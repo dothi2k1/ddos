@@ -626,7 +626,9 @@ function runFlooder() {
   });
 }
 const StopScript = () => {
-  console.log('Ddos thành công web ' + args.target + ' trong ' + args.time + ' giây');
+  console.log(
+    `Ddos thành công web ${args.target} trong ${args.time} giây, với tốc độ ${args.Rate} requests mỗi giây và ${args.threads} luồng.`
+  );
   process.exit(1)
 };
 
